@@ -2,6 +2,7 @@ import random
 total = 300
 
 def main():
+    s = score()
     again = "y"
     print(f"Your beginning score is {total}")
 
@@ -10,7 +11,7 @@ def main():
         f_num = card("The", "is")
         HL = input("Higher or Lower? [h/l] ")
         s_num = card("Next", "was")
-        score(f_num, s_num, HL)
+        s.score_fun(f_num, s_num, HL)
         print()
         again = input("Play again? [y/n] ")
 
@@ -25,24 +26,53 @@ def card(a,b):
     return R_num
 
 
-def score(f_num, s_num, HL):
-    global total
-    if HL == "h":
-        if f_num < s_num:
-            total += 100
-        else:
-            total -= 75
-    elif HL == "l":
-        if f_num > s_num:
-            total += 100
-        else:
-            total -= 75
-    else:
-         print("You did not type the right letter")
+# def score(f_num, s_num, HL):
+#     global total
+#     if HL == "h":
+#         if f_num < s_num:
+#             total += 100
+#         else:
+#             total -= 75
+#     elif HL == "l":
+#         if f_num > s_num:
+#             total += 100
+#         else:
+#             total -= 75
+#     else:
+#          print("You did not type the right letter")
 
-    print(f"Your score is {total}")
+#     print(f"Your score is {total}")
 
-    return total
+#     return total
+
+
+
+class score:
+
+    def __init__(self):
+        pass
+
+    def score_fun(self, f_num, s_num, HL):
+        global total
+        if HL == "h":
+            if f_num < s_num:
+                total += 100
+            else:
+                total -= 75
+        elif HL == "l":
+            if f_num > s_num:
+                total += 100
+            else:
+                total -= 75
+        else:
+                print("You did not type the right letter")
+
+        print(f"Your score is {total}")
+
+        return total
+
+
+
 
 if __name__ == "__main__":
     main()
