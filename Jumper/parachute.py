@@ -35,7 +35,4 @@ class Parachute:
                 self._drawing_list[0] = '  x'
 
 
-jumper = Parachute()
-for i in range(5):
-    jumper.drawing()
-    jumper.remove(False)#or Ture
+
