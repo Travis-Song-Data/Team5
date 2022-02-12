@@ -32,7 +32,11 @@ class Parachute:
                 self._drawing_list.pop(0)
             elif self._turn == 4:
                 self._drawing_list.pop(0)
+<<<<<<< HEAD
                 self._drawing_list[0] = '  x'
 
 
 
+=======
+                self._drawing_list[0] = '  x'
+>>>>>>> 1dab2bdf79499ef2071963a687640a19bab83414
