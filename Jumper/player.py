@@ -47,7 +47,7 @@ def word_list(self, puzzle_word, letter):
 
         return indices
 
-    pass
+
 
     #random_word = self.word.callword()
     #  for i in len(random_word)
