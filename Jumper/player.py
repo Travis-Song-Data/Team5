@@ -1,4 +1,6 @@
-#import puzzle
+from puzzle import puzzle
+from parachute import Parachute
+
 
 class Player:
     """ The responsibility of the player class is to ask for a letter from the user, store the letter.
@@ -12,7 +14,7 @@ class Player:
             self (player): An instance of player.
         """
         self.is_playing = True
-        # self.word = puzzle()
+        self.word = puzzle()
 
 
 def start_game(self):
@@ -34,8 +36,33 @@ def user_input(self):
     return input_letter
 
 
-def word_list(self):
+def word_list(self, puzzle_word, letter):
     """Gets the chosen list from the puzzle class"""
-    #random_word = self.word.callword()
-    # return random_word
+    indices = []
+    length_of_puzzle = len(puzzle_word) - 1
+
+    for i in length_of_puzzle:
+        if letter == puzzle_word[i]:
+            indices.append(i)
+
+        return indices
+
     pass
+
+    #random_word = self.word.callword()
+    #  for i in len(random_word)
+    #   print('-')
+    # if self.guess_letter in random_word:
+    # find indices of the word and replace in that position
+    # replace the word with the correct guessed letter
+    # else:
+    # store in the list of words that was guessed wrong
+
+    #
+    # return random_word
+
+
+jumper = Parachute()
+for i in range(5):  # Where game starts
+    jumper.drawing()
+    jumper.remove(False)  # or Ture
