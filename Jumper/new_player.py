@@ -26,6 +26,7 @@ class Player:
         while self.is_playing:
             self.user_input()
             indices, guess = self.word_list(self.word, self.user_input)
+            print(indices)
             self.jumper.drawing()
             self.jumper.remove(guess)
 
