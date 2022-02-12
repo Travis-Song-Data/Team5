@@ -38,4 +38,5 @@ def word_list(self):
     """Gets the chosen list from the puzzle class"""
     #random_word = self.word.callword()
     # return random_word
+    
     pass
