@@ -14,55 +14,58 @@ class Player:
             self (player): An instance of player.
         """
         self.is_playing = True
-        self.word = puzzle()
+        self.word = puzzle().call_word()
+        self.jumper = Parachute()
+
+    def start_game(self):
+        """Starts the game by running the main game loop.
+
+        Args:
+            self (player): an instance of Director.
+            """
+        while self.is_playing:
+            self.user_input()
+            indices, guess = self.word_list(self.word, self.user_input)
+            self.jumper.drawing()
+            self.jumper.remove(guess)
 
 
-def start_game(self):
-    """Starts the game by running the main game loop.
+    def user_input(self):
+        """Gets a letter from the user
 
-    Args:
-        self (player): an instance of Director.
-        """
-    while self.is_playing:
-        self.user_input()
-        self.word_list()
+        Returns: the input from user"""
+        input_letter = input("Guess a letter [a-z]: ")
+        return input_letter
 
 
-def user_input(self):
-    """Gets a letter from the user
+    def word_list(self, puzzle_word, letter):
+        """Gets the chosen list from the puzzle class"""
+        indices = []
+        length_of_puzzle = len(puzzle_word) - 1
 
-    Returns: the input from user"""
-    input_letter = input("Guess a letter [a-z]: ")
-    return input_letter
-
-
-def word_list(self, puzzle_word, letter):
-    """Gets the chosen list from the puzzle class"""
-    indices = []
-    length_of_puzzle = len(puzzle_word) - 1
-
-    for i in length_of_puzzle:
-        if letter == puzzle_word[i]:
-            indices.append(i)
-
-        return indices
-
-    pass
-
-    #random_word = self.word.callword()
-    #  for i in len(random_word)
-    #   print('-')
-    # if self.guess_letter in random_word:
-    # find indices of the word and replace in that position
-    # replace the word with the correct guessed letter
-    # else:
-    # store in the list of words that was guessed wrong
-
-    #
-    # return random_word
+        for i in range(length_of_puzzle):
+            if letter == puzzle_word[i]:
+                    indices.append(letter)
+                    print(indices)
+                    guess = True
+            guess = False
+            return indices, guess
 
 
-jumper = Parachute()
-for i in range(5):  # Where game starts
-    jumper.drawing()
-    jumper.remove(False)  # or Ture
+        #random_word = self.word.callword()
+        #  for i in len(random_word)
+        #   print('-')
+        # if self.guess_letter in random_word:
+        # find indices of the word and replace in that position
+        # replace the word with the correct guessed letter
+        # else:
+        # store in the list of words that was guessed wrong
+
+        #
+        # return random_word
+
+
+
+
+play = Player()
+play.start_game()
