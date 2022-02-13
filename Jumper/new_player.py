@@ -1,6 +1,7 @@
+
 from puzzle import puzzle
 from parachute import Parachute
-
+from output_services import output_service
 
 class Player:
     """ The responsibility of the player class is to ask for a letter from the user, store the letter.
@@ -17,6 +18,9 @@ class Player:
         self.letters_that_are_correct = []
         self.word = puzzle()
         self.jumper = Parachute()
+        self.display_word = []
+        
+        # self.display = output_service()
 
     def start_game(self):
         """Starts the game by running the main game loop.
@@ -25,11 +29,22 @@ class Player:
             self (player): an instance of Director.
             """
         word = self.word.call_word()
+        self.get_len_of_word(word)
+        print(word)
         while self.is_playing:
             letter = self.user_input()
             guess = self.word_list(word, letter)
             self.jumper.remove(guess)
+            print(self.letters_that_are_correct)
             self.jumper.drawing()
+
+            # self.display.display_word(word, self.letters_that_are_correct, self.display_word)
+
+            # display_word is the method you are going to create in the output_services class
+            # word is the puzzle word you put as a parameter
+            # self.letter_that_are_correct is a list that contains all the correct letter player had guessed
+            # self.display_word is the initially  _ _ _ _ _. You need to wirte the methoud replace _ to the correct
+            # letter in a correct location.
             self.keep_playing(self.jumper)
 
     def user_input(self):
@@ -41,7 +56,7 @@ class Player:
 
     def word_list(self, puzzle_word, letter):
         """Gets the chosen list from the puzzle class"""
-        length_of_puzzle = len(puzzle_word) - 1
+        length_of_puzzle = len(puzzle_word)
         for i in range(length_of_puzzle):
             if letter == puzzle_word[i]:
                 self.letters_that_are_correct.append(letter)
@@ -55,17 +70,16 @@ class Player:
         if parachute._drawing_list[0] == '  x':
             self.is_playing = False
 
+        if '_' not in self.display_word:
+            self.is_playing = False
 
-        #random_word = self.word.callword()
-        #  for i in len(random_word)
-        #   print('-')
-        # if self.guess_letter in random_word:
-        # find indices of the word and replace in that position
-        # replace the word with the correct guessed letter
-        # else:
-        # store in the list of words that was guessed wrong
+    
+    def get_len_of_word(self, puzzle_word):
+        num_letters = len(puzzle_word)
+        for i in range(num_letters):
+            self.display_word.append('_')
 
-        #
-        # return random_word
+
+
 play = Player()
 play.start_game()
