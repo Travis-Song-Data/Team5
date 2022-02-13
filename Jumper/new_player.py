@@ -14,7 +14,7 @@ class Player:
             self (player): An instance of player.
         """
         self.is_playing = True
-        self.letters_have_been_used = []
+        self.letters_that_are_correct = []
         self.word = puzzle()
         self.jumper = Parachute()
 
@@ -44,7 +44,7 @@ class Player:
         length_of_puzzle = len(puzzle_word) - 1
         for i in range(length_of_puzzle):
             if letter == puzzle_word[i]:
-                self.letters_have_been_used.append(letter)
+                self.letters_that_are_correct(letter)
                 guess = True
                 return
         guess = False
