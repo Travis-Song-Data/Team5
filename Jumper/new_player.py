@@ -44,7 +44,7 @@ class Player:
         length_of_puzzle = len(puzzle_word) - 1
         for i in range(length_of_puzzle):
             if letter == puzzle_word[i]:
-                self.letters_that_are_correct(letter)
+                self.letters_that_are_correct.append(letter)
                 guess = True
                 return
         guess = False
