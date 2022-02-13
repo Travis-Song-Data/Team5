@@ -20,7 +20,7 @@ class Player:
         self.jumper = Parachute()
         self.display_word = []
         
-        # self.display = output_service()
+        self.display = output_service()
 
     def start_game(self):
         """Starts the game by running the main game loop.
@@ -35,10 +35,10 @@ class Player:
             letter = self.user_input()
             guess = self.word_list(word, letter)
             self.jumper.remove(guess)
-            print(self.letters_that_are_correct)
+            print('')
             self.jumper.drawing()
-
-            # self.display.display_word(word, self.letters_that_are_correct, self.display_word)
+            print('')
+            self.display.display_word(word, self.letters_that_are_correct, self.display_word)
 
             # display_word is the method you are going to create in the output_services class
             # word is the puzzle word you put as a parameter
@@ -51,7 +51,7 @@ class Player:
         """Gets a letter from the user
 
         Returns: the input from user"""
-        input_letter = input("Guess a letter [a-z]: ")
+        input_letter = input("\nGuess a letter [a-z]: ")
         return input_letter
 
     def word_list(self, puzzle_word, letter):
