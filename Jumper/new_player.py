@@ -14,7 +14,8 @@ class Player:
             self (player): An instance of player.
         """
         self.is_playing = True
-        self.word = puzzle().call_word()
+        self.letters_have_been_used = []
+        self.word = puzzle()
         self.jumper = Parachute()
 
     def start_game(self):
@@ -23,12 +24,13 @@ class Player:
         Args:
             self (player): an instance of Director.
             """
+        word = self.word.call_word()
         while self.is_playing:
-            self.user_input()
-            indices, guess = self.word_list(self.word, self.user_input)
-            print(indices)
-            self.jumper.drawing()
+            letter = self.user_input()
+            guess = self.word_list(word, letter)
             self.jumper.remove(guess)
+            self.jumper.drawing()
+            self.keep_playing(self.jumper)
 
 
     def user_input(self):
@@ -41,16 +43,20 @@ class Player:
 
     def word_list(self, puzzle_word, letter):
         """Gets the chosen list from the puzzle class"""
-        indices = []
         length_of_puzzle = len(puzzle_word) - 1
-
         for i in range(length_of_puzzle):
             if letter == puzzle_word[i]:
-                    indices.append(letter)
-                    print(indices)
-                    guess = True
-            guess = False
-            return indices, guess
+                self.letters_have_been_used.append(letter)
+                guess = True
+                return
+        guess = False
+        return guess
+    
+    def keep_playing(self, parachute):
+        """Keep tracking if the game is over"""
+        if parachute._drawing_list[0] == '  x':
+            self.is_playing = False
+
 
 
         #random_word = self.word.callword()

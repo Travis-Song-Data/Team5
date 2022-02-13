@@ -33,3 +33,5 @@ class Parachute:
             elif self._turn == 4:
                 self._drawing_list.pop(0)
                 self._drawing_list[0] = '  x'
+        else:
+            return
