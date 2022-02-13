@@ -30,7 +30,6 @@ class Player:
             """
         word = self.word.call_word()
         self.get_len_of_word(word)
-        print(word)
         while self.is_playing:
             letter = self.user_input()
             guess = self.word_list(word, letter)
