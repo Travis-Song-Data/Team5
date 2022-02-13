@@ -32,14 +32,12 @@ class Player:
             self.jumper.drawing()
             self.keep_playing(self.jumper)
 
-
     def user_input(self):
         """Gets a letter from the user
 
         Returns: the input from user"""
         input_letter = input("Guess a letter [a-z]: ")
         return input_letter
-
 
     def word_list(self, puzzle_word, letter):
         """Gets the chosen list from the puzzle class"""
@@ -58,7 +56,6 @@ class Player:
             self.is_playing = False
 
 
-
         #random_word = self.word.callword()
         #  for i in len(random_word)
         #   print('-')
@@ -70,9 +67,5 @@ class Player:
 
         #
         # return random_word
-
-
-
-
 play = Player()
 play.start_game()

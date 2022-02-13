@@ -3,16 +3,19 @@
    
    self._drawing_list: The structure of the parachute
    self._turn: Count how many time had the player guessed incorrect. When count ups to 4, the little man die. Game over'''
+
+
 class Parachute:
     ''''''
+
     def __init__(self):
 
-        self._drawing_list = [' ___', 
-                              '/___\\', 
+        self._drawing_list = [' ___',
+                              '/___\\',
                               '\   /',
-                              ' \ /', 
-                              '  o', 
-                              ' /|\\', 
+                              ' \ /',
+                              '  o',
+                              ' /|\\',
                               ' / \\']
         self._turn = 0
 
@@ -20,7 +23,6 @@ class Parachute:
         '''Drawing and print the parachute'''
         for i in self._drawing_list:
             print(i)
-
 
     def remove(self, answer):
         '''Require an "answer" parameter which is a boolean parameter.
