@@ -33,6 +33,7 @@ def main():
     # create the cast
     cast = Cast()
 
+    # create the scoring indicator.
     score = Actor()
     score.set_text("Point: ")
     points = score.get_text()
