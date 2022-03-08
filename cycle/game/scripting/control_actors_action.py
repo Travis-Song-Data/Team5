@@ -54,7 +54,7 @@ class ControlActorsAction(Action):
         
         snake = cast.get_first_actor("snakes")
         snake.turn_head(self._direction1)
-        if self._count1 % 30 == 0:
+        if self._count1 % 50 == 0:
             snake.grow_tail(2)
 
         # second player
@@ -80,5 +80,5 @@ class ControlActorsAction(Action):
 
         snake2 = cast.get_first_actor("snakes2")
         snake2.turn_head(self._direction2)
-        if self._count2 % 30 == 0:
+        if self._count2 % 50 == 0:
             snake2.grow_tail(2)

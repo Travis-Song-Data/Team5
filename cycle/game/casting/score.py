@@ -12,16 +12,16 @@ class Score(Actor):
     Attributes:
         _points (int): The points earned in the game.
     """
-    def __init__(self):
+    def __init__(self, snake):
         super().__init__()
         self._points = 0
-        self.add_points(0)
+        self.add_points(0, snake)
 
-    def add_points(self, points):
+    def add_points(self, points, snake):
         """Adds the given points to the score's total points.
         
         Args:
             points (int): The points to add.
         """
         self._points += points
-        self.set_text(f"Score: {self._points}")
+        self.set_text(f"{snake}: {self._points}")

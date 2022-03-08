@@ -29,7 +29,7 @@ class DrawActorsAction(Action):
         """
         score1 = cast.get_first_actor("scores1")
         score2 = cast.get_first_actor("scores2")
-        score2.set_position(Point(830, 0))
+        score2.set_position(Point(800, 0))
         food = cast.get_first_actor("foods")
         snake = cast.get_first_actor("snakes")
         segments = snake.get_segments()
