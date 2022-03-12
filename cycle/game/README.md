@@ -30,7 +30,7 @@ Visual Studio Code
 
 Team Members and Email Addresses:
 
-Sebastian Bustamante - bus21006@byui.edu
-Xing Gao - gao20002@byui.edu
-Na Rah Kwak - kwa18001@byui.edu
-Travis Song - son19001@byui.edu
+Sebastian Bustamante - bus21006@byui.edu, 
+Xing Gao - gao20002@byui.edu, 
+Na Rah Kwak - kwa18001@byui.edu, 
+Travis Song - son19001@byui.edu,
