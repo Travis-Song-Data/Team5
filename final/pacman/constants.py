@@ -26,7 +26,7 @@ CENTER_X = SCREEN_WIDTH / 2
 CENTER_Y = SCREEN_HEIGHT / 2
 
 # FIELD
-FIELD_TOP = 60
+FIELD_TOP = 0
 FIELD_BOTTOM = SCREEN_HEIGHT
 FIELD_LEFT = 0
 FIELD_RIGHT = SCREEN_WIDTH
@@ -70,7 +70,7 @@ IN_PLAY = 3
 GAME_OVER = 4
 
 # LEVELS
-LEVEL_FILE = str(ROOT_PATH.joinpath("pacman/assets/data/level-{:03}.txt"))
+LEVEL_FILE = str(ROOT_PATH.joinpath("pacman/assets/data/level-000.txt"))
 BASE_LEVELS = 5
 
 # WALLS
@@ -130,12 +130,7 @@ PACMAN_VELOCITY = 4
 
 # BRICK
 BRICK_GROUP = "bricks"
-BRICK_IMAGES = {
-    "b": [str(ROOT_PATH.joinpath(f"pacman/assets/images/{i:03}.png")) for i in range(10,19)],
-    "g": [str(ROOT_PATH.joinpath(f"pacman/assets/images/{i:03}.png")) for i in range(20,29)],
-    "p": [str(ROOT_PATH.joinpath(f"pacman/assets/images/{i:03}.png")) for i in range(30,39)],
-    "y": [str(ROOT_PATH.joinpath(f"pacman/assets/images/{i:03}.png")) for i in range(40,49)]
-}
+BRICK_IMAGES = str(ROOT_PATH.joinpath(f"pacman/assets/images/010.png"))
 BRICK_WIDTH = 80
 BRICK_HEIGHT = 30
 BRICK_DELAY = 0.5
