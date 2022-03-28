@@ -82,7 +82,6 @@ maze[starting_height-1][starting_width] = 'w'
 maze[starting_height][starting_width - 1] = 'w'
 maze[starting_height][starting_width + 1] = 'w'
 maze[starting_height + 1][starting_width] = 'w'
-
 while (walls):
     # Pick a random wall
     rand_wall = walls[int(random.random()*len(walls))-1]

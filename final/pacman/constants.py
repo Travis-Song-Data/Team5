@@ -93,7 +93,14 @@ RELEASE = 6
 # CASTING CONSTANTS
 # -------------------------------------------------------------------------------------------------- 
 
+# RAINS
 
+RAIN_GROUP = "rains"
+DEFAULT_RAINS = 20
+RAIN_IMAGES = str(ROOT_PATH.joinpath("pacman/assets/images/130.png"))
+RAIN_WIDTH = 5
+RAIN_HEIGHT = 5
+RAIN_VELOCITY = 2
 
 # STATS
 STATS_GROUP = "stats"

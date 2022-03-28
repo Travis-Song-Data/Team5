@@ -1,4 +1,5 @@
 import csv
+import random
 from turtle import back, position
 from constants import *
 from game.casting.animation import Animation
@@ -37,6 +38,9 @@ from game.services.raylib.raylib_video_service import RaylibVideoService
 
 from game.casting.wall import Wall
 from game.scripting.draw_wall_action import DrawWallAction
+from game.casting.rain import Rain
+from game.scripting.draw_rain_action import DrawRainAction
+from game.services.video_service import VideoService
 class SceneManager:
     """The person in charge of setting up the cast and script for each scene."""
     
@@ -54,6 +58,7 @@ class SceneManager:
     DRAW_HUD_ACTION = DrawHudAction(VIDEO_SERVICE)
     DRAW_PACMAN_ACTION= DrawPacmanAction(VIDEO_SERVICE)
     DRAW_BACKGROUND_ACTION = DrawBackgroundAction(VIDEO_SERVICE)
+    DRAW_RAIN_ACTION = DrawRainAction(VIDEO_SERVICE)
     END_DRAWING_ACTION = EndDrawingAction(VIDEO_SERVICE)
     INITIALIZE_DEVICES_ACTION = InitializeDevicesAction(AUDIO_SERVICE, VIDEO_SERVICE)
     LOAD_ASSETS_ACTION = LoadAssetsAction(AUDIO_SERVICE, VIDEO_SERVICE)
@@ -84,6 +89,7 @@ class SceneManager:
     # ----------------------------------------------------------------------------------------------
     
     def _prepare_new_game(self, cast, script):
+        self._add_rain(cast)
         self._add_background(cast)
         self._add_stats(cast)
         self._add_level(cast)
@@ -103,6 +109,7 @@ class SceneManager:
         self._add_release_script(script)
         
     def _prepare_next_level(self, cast, script):
+        self._add_rain(cast)
         self._add_background(cast)
         self._add_bricks(cast)
         self._add_pacman(cast)
@@ -143,27 +150,18 @@ class SceneManager:
     # casting methods
     # ----------------------------------------------------------------------------------------------
     
+    def _add_rain(self, cast):
+        cast.clear_actors(RAIN_GROUP)
+
+        for n in range(DEFAULT_RAINS):
+            velocity = Point(0, RAIN_VELOCITY)
+            image = Image(RAIN_IMAGES)
+            rain = Rain(image, velocity)
+            cast.add_actor(RAIN_GROUP, rain)
+
+
     def _add_wall(self, cast):
-        stats = cast.get_first_actor(STATS_GROUP)
-        level = stats.get_level() % BASE_LEVELS
-        filename = LEVEL_FILE.format(level)
-
-        with open(filename, 'r') as file:
-            reader = csv.reader(file, skipinitialspace=True)
-
-            for r, row in enumerate(reader):
-                for c, column in enumerate(row):
-                    x = FIELD_LEFT + c * BRICK_WIDTH
-                    y = FIELD_TOP + r * BRICK_HEIGHT
-
-                    position = Point(x, y)
-                    size = Point(BRICK_WIDTH, BRICK_HEIGHT)
-                    velocity = Point(0, 0)
-
-                    body = Body(position, size, velocity)
-
-                    wall = Wall(body)
-                    cast.add_actor(WALL_GROUP, wall)
+        pass
 
     def _add_background(self, cast):
         image = Image(BACKGROUND_IMAGE)
@@ -182,7 +180,7 @@ class SceneManager:
 
             for r, row in enumerate(reader):
                 for c, column in enumerate(row):
-                    if c // 2 != 0:
+                    # if c // 2 != 0:
                         x = FIELD_LEFT + c * BRICK_WIDTH
                         y = FIELD_TOP + r * BRICK_HEIGHT
                         color = column[0]
@@ -263,6 +261,7 @@ class SceneManager:
         script.clear_actions(OUTPUT)
         script.add_action(OUTPUT, self.START_DRAWING_ACTION)
         script.add_action(OUTPUT, self.DRAW_BACKGROUND_ACTION)
+        script.add_action(OUTPUT, self.DRAW_RAIN_ACTION)
         script.add_action(OUTPUT, self.DRAW_HUD_ACTION)
         script.add_action(OUTPUT, self.DRAW_BRICKS_ACTION)
         script.add_action(OUTPUT, self.DRAW_PACMAN_ACTION)
