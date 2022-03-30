@@ -38,7 +38,8 @@ FONT_SMALL = 32
 FONT_LARGE = 48
 
 # SOUND
-BOUNCE_SOUND = str(ROOT_PATH.joinpath("pacman/assets/sounds/background.wav"))
+BACKGROUND_SOUND = str(ROOT_PATH.joinpath("pacman/assets/sounds/background.wav"))
+EAT_FOOD_SOUND = str(ROOT_PATH.joinpath("pacman/assets/sounds/eat.aac"))
 WELCOME_SOUND = str(ROOT_PATH.joinpath("pacman/assets/sounds/load.wav"))
 OVER_SOUND = str(ROOT_PATH.joinpath("pacman/assets/sounds/scream.wav"))
 
@@ -93,14 +94,19 @@ RELEASE = 6
 # CASTING CONSTANTS
 # -------------------------------------------------------------------------------------------------- 
 
-# RAINS
+# FOODS
+FOOD_GROUP = "foods"
+FOOD_IMAGES = str(ROOT_PATH.joinpath("pacman/assets/images/food.png"))
+FOOD_WIDTH = 30
+FOOD_HEIGHT = 30 
+FOOD_FILE = str(ROOT_PATH.joinpath("pacman/assets/data/food_map.txt"))
+FOOD_POINT = 5
 
+# RAINS
 RAIN_GROUP = "rains"
-DEFAULT_RAINS = 20
+DEFAULT_RAINS = 100
 RAIN_IMAGES = str(ROOT_PATH.joinpath("pacman/assets/images/130.png"))
-RAIN_WIDTH = 5
-RAIN_HEIGHT = 5
-RAIN_VELOCITY = 2
+RAIN_VELOCITY = 7
 
 # STATS
 STATS_GROUP = "stats"
@@ -126,7 +132,7 @@ PACMAN_IMAGES_DOWN = [str(ROOT_PATH.joinpath(f"pacman/assets/images/{n:03}.png")
 PACMAN_WIDTH = 30
 PACMAN_HEIGHT = 30
 PACMAN_RATE = 6
-PACMAN_VELOCITY = 4
+PACMAN_VELOCITY = 2
 
 # BRICK
 BRICK_GROUP = "bricks"
@@ -134,7 +140,7 @@ BRICK_IMAGES = str(ROOT_PATH.joinpath(f"pacman/assets/images/010.png"))
 BRICK_WIDTH = 80
 BRICK_HEIGHT = 30
 BRICK_DELAY = 0.5
-BRICK_RATE = 4
+BRICK_RATE = 6
 BRICK_POINTS = 50
 
 # DIALOG

@@ -10,10 +10,19 @@ class DrawRainAction(Action):
         
     def execute(self, cast, script, callback):
         rains = cast.get_actors(RAIN_GROUP)
+        
         for rain in rains:
-
+            body = rain.get_body()
+            position = body.get_position()
+            velocity = body.get_velocity()
+            new_position = position.add(velocity)
+            body.set_position(new_position)
+            y = new_position.get_y()
+            x = new_position.get_x()
+            if y >= FIELD_BOTTOM:
+                new_position = Point(x, FIELD_TOP)
+                body.set_position(new_position)
             image = rain.get_image()
-            x = random.randint(1, SCREEN_WIDTH - 1)
-            y = random.randint(1, SCREEN_HEIGHT - 1)
-            position = Point(x, y)
-            self._video_service.draw_image(image, position)
+            self._video_service.draw_image(image, new_position)
+            
+

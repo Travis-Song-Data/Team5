@@ -20,15 +20,6 @@ class CollideBrickAction(Action):
             pacman_body = pacman.get_body()
             pacman_position = pacman_body.get_position()
 
-            # if self._physics_service.has_collided(pacman_body, brick_body):
-            #     # sound = Sound(BOUNCE_SOUND)
-            #     # self._audio_service.play_sound(sound)
-            #     # points = brick.get_points()
-            #     # stats.add_points(points)
-            #     # cast.remove_actor(BRICK_GROUP, brick)
-            #     pacman.stop_moving()
-            #     pacman_body.set_position(Point(pacman_position.get_x()-10, pacman_position.get_y()-10))
-
             if self._physics_service.is_above(pacman_body, brick_body):
                 pacman.stop_moving()
                 pacman_body.set_position(Point(pacman_position.get_x(), pacman_position.get_y() - PACMAN_VELOCITY))

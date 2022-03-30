@@ -39,6 +39,9 @@ from game.services.raylib.raylib_video_service import RaylibVideoService
 from game.casting.rain import Rain
 from game.scripting.draw_rain_action import DrawRainAction
 from game.services.video_service import VideoService
+from game.casting.food import Food
+from game.scripting.draw_food_action import DrawFoodAction
+from game.scripting.collide_food_action import CollideFoodAction
 class SceneManager:
     """The person in charge of setting up the cast and script for each scene."""
     
@@ -64,7 +67,8 @@ class SceneManager:
     RELEASE_DEVICES_ACTION = ReleaseDevicesAction(AUDIO_SERVICE, VIDEO_SERVICE)
     START_DRAWING_ACTION = StartDrawingAction(VIDEO_SERVICE)
     UNLOAD_ASSETS_ACTION = UnloadAssetsAction(AUDIO_SERVICE, VIDEO_SERVICE)
-
+    DRAW_FOOD_ACTION = DrawFoodAction(VIDEO_SERVICE)
+    COLLIDE_FOODS_ACTION = CollideFoodAction(PHYSICS_SERVICE, AUDIO_SERVICE)
 
     def __init__(self):
         pass
@@ -95,6 +99,7 @@ class SceneManager:
         self._add_bricks(cast)
         self._add_pacman(cast)
         self._add_dialog(cast, ENTER_TO_START)
+        self._add_foods(cast)
 
         self._add_initialize_script(script)
         self._add_load_script(script)
@@ -103,6 +108,7 @@ class SceneManager:
         self._add_output_script(script)
         self._add_unload_script(script)
         self._add_release_script(script)
+        script.add_action(OUTPUT, PlaySoundAction(self.AUDIO_SERVICE, BACKGROUND_SOUND)) 
         
     def _prepare_next_level(self, cast, script):
         self._add_rain(cast)
@@ -110,6 +116,7 @@ class SceneManager:
         self._add_bricks(cast)
         self._add_pacman(cast)
         self._add_dialog(cast, PREP_TO_LAUNCH)
+        self._add_foods(cast)
 
         script.clear_actions(INPUT)
         script.add_action(INPUT, TimedChangeSceneAction(IN_PLAY, 2))
@@ -119,6 +126,7 @@ class SceneManager:
     def _prepare_try_again(self, cast, script):
         self._add_pacman(cast)
         self._add_dialog(cast, PREP_TO_LAUNCH)
+        self._add_foods(cast)
 
         script.clear_actions(INPUT)
         script.add_action(INPUT, TimedChangeSceneAction(IN_PLAY, 2))
@@ -133,7 +141,6 @@ class SceneManager:
         self._add_update_script(script)
         self._add_output_script(script)
         #add background sound
-        script.add_action(OUTPUT, PlaySoundAction(self.AUDIO_SERVICE, BOUNCE_SOUND)) 
 
     def _prepare_game_over(self, cast, script):
         self._add_pacman(cast)
@@ -152,16 +159,44 @@ class SceneManager:
         cast.clear_actors(RAIN_GROUP)
 
         for n in range(DEFAULT_RAINS):
+            x = random.randint(1, SCREEN_WIDTH - 1)
+            y = random.randint(1, SCREEN_HEIGHT - 1)
+            position = Point(x, y)
             velocity = Point(0, RAIN_VELOCITY)
+            size = Point(0, 0)
             image = Image(RAIN_IMAGES)
-            rain = Rain(image, velocity)
+            body = Body(position, size, velocity)
+            rain = Rain(image, body)
             cast.add_actor(RAIN_GROUP, rain)
-
 
     def _add_background(self, cast):
         image = Image(BACKGROUND_IMAGE)
         background = Background(image, True)
         cast.add_actor(BACKGROUND_GROUP, background) 
+
+    def _add_foods(self, cast):
+        cast.clear_actors(FOOD_GROUP)
+
+        filename = FOOD_FILE
+
+        with open(filename, 'r') as file:
+            reader = csv.reader(file, skipinitialspace=True)
+
+            for r, row in enumerate(reader):
+                for c, column in enumerate(row):
+                    if column == '0':
+                        x = FIELD_LEFT + c * FOOD_WIDTH
+                        y = FIELD_TOP + r * FOOD_HEIGHT
+                        
+                        position = Point(x, y)
+                        size = Point(FOOD_WIDTH, FOOD_HEIGHT)
+                        velocity = Point(0, 0)
+                        image = Image(FOOD_IMAGES)
+                        point = FOOD_POINT
+                        body = Body(position, size, velocity)
+
+                        food = Food(body, image, point)
+                        cast.add_actor(FOOD_GROUP, food)
 
     def _add_bricks(self, cast):
         cast.clear_actors(BRICK_GROUP)
@@ -247,11 +282,12 @@ class SceneManager:
         script.clear_actions(OUTPUT)
         script.add_action(OUTPUT, self.START_DRAWING_ACTION)
         script.add_action(OUTPUT, self.DRAW_BACKGROUND_ACTION)
-        script.add_action(OUTPUT, self.DRAW_RAIN_ACTION)
-        script.add_action(OUTPUT, self.DRAW_HUD_ACTION)
         script.add_action(OUTPUT, self.DRAW_BRICKS_ACTION)
+        script.add_action(OUTPUT, self.DRAW_RAIN_ACTION)
         script.add_action(OUTPUT, self.DRAW_PACMAN_ACTION)
+        script.add_action(OUTPUT, self.DRAW_FOOD_ACTION)
         script.add_action(OUTPUT, self.DRAW_DIALOG_ACTION)
+        script.add_action(OUTPUT, self.DRAW_HUD_ACTION)
         script.add_action(OUTPUT, self.END_DRAWING_ACTION)
 
     def _add_release_script(self, script):
@@ -266,6 +302,7 @@ class SceneManager:
         script.clear_actions(UPDATE)
         script.add_action(UPDATE, self.MOVE_PACMAN_ACTION)
         # script.add_action(UPDATE, self.COLLIDE_BORDERS_ACTION)
+        script.add_action(UPDATE, self.COLLIDE_FOODS_ACTION)
         script.add_action(UPDATE, self.COLLIDE_BRICKS_ACTION)
         script.add_action(UPDATE, self.MOVE_PACMAN_ACTION)
         script.add_action(UPDATE, self.CHECK_OVER_ACTION)

@@ -5,10 +5,10 @@ from game.casting.actor import Actor
 
 class Rain(Actor):
 
-    def __init__(self, image, velocity):
+    def __init__(self, image, body):
         super().__init__()
         self._image = image
-        self._velocity = velocity
+        self._body = body
 
     def get_image(self):
         """Gets the ball's image.
@@ -25,3 +25,7 @@ class Rain(Actor):
             An instance of Point containing the horizontal and vertical speed.
         """
         return self._velocity
+
+    def get_body(self):
+
+        return self._body
