@@ -136,6 +136,8 @@ class SceneManager:
         script.add_action(INPUT, self.CONTROL_PACMAN_ACTION)
         self._add_update_script(script)
         self._add_output_script(script)
+        #add background sound
+        script.add_action(OUTPUT, PlaySoundAction(self.AUDIO_SERVICE, BOUNCE_SOUND)) 
 
     def _prepare_game_over(self, cast, script):
         self._add_pacman(cast)

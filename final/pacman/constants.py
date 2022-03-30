@@ -38,9 +38,9 @@ FONT_SMALL = 32
 FONT_LARGE = 48
 
 # SOUND
-BOUNCE_SOUND = str(ROOT_PATH.joinpath("pacman/assets/sounds/boing.wav"))
-WELCOME_SOUND = str(ROOT_PATH.joinpath("pacman/assets/sounds/start.wav"))
-OVER_SOUND = str(ROOT_PATH.joinpath("pacman/assets/sounds/over.wav"))
+BOUNCE_SOUND = str(ROOT_PATH.joinpath("pacman/assets/sounds/background.wav"))
+WELCOME_SOUND = str(ROOT_PATH.joinpath("pacman/assets/sounds/load.wav"))
+OVER_SOUND = str(ROOT_PATH.joinpath("pacman/assets/sounds/scream.wav"))
 
 # TEXT
 ALIGN_CENTER = 0
