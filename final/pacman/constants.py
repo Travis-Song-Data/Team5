@@ -39,7 +39,7 @@ FONT_LARGE = 48
 
 # SOUND
 BACKGROUND_SOUND = str(ROOT_PATH.joinpath("pacman/assets/sounds/background.wav"))
-EAT_FOOD_SOUND = str(ROOT_PATH.joinpath("pacman/assets/sounds/eat.aac"))
+EAT_FOOD_SOUND = str(ROOT_PATH.joinpath("pacman/assets/sounds/eat.wav"))
 WELCOME_SOUND = str(ROOT_PATH.joinpath("pacman/assets/sounds/load.wav"))
 OVER_SOUND = str(ROOT_PATH.joinpath("pacman/assets/sounds/scream.wav"))
 
