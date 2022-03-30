@@ -36,8 +36,6 @@ from game.services.raylib.raylib_keyboard_service import RaylibKeyboardService
 from game.services.raylib.raylib_physics_service import RaylibPhysicsService
 from game.services.raylib.raylib_video_service import RaylibVideoService
 
-from game.casting.wall import Wall
-from game.scripting.draw_wall_action import DrawWallAction
 from game.casting.rain import Rain
 from game.scripting.draw_rain_action import DrawRainAction
 from game.services.video_service import VideoService
@@ -67,7 +65,6 @@ class SceneManager:
     START_DRAWING_ACTION = StartDrawingAction(VIDEO_SERVICE)
     UNLOAD_ASSETS_ACTION = UnloadAssetsAction(AUDIO_SERVICE, VIDEO_SERVICE)
 
-    DRAW_WALL_ACTION = DrawWallAction(VIDEO_SERVICE)
 
     def __init__(self):
         pass
@@ -97,7 +94,6 @@ class SceneManager:
         self._add_score(cast)
         self._add_bricks(cast)
         self._add_pacman(cast)
-        self._add_wall(cast)
         self._add_dialog(cast, ENTER_TO_START)
 
         self._add_initialize_script(script)
@@ -161,9 +157,6 @@ class SceneManager:
             rain = Rain(image, velocity)
             cast.add_actor(RAIN_GROUP, rain)
 
-
-    def _add_wall(self, cast):
-        pass
 
     def _add_background(self, cast):
         image = Image(BACKGROUND_IMAGE)
