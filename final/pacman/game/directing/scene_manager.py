@@ -16,7 +16,6 @@ from game.casting.stats import Stats
 from game.casting.text import Text 
 from game.scripting.change_scene_action import ChangeSceneAction
 from game.scripting.check_over_action import CheckOverAction
-# from game.scripting.collide_borders_action import CollideBordersAction
 from game.scripting.collide_wall_action import CollideWallAction
 from game.scripting.control_pacman_action import ControlPacmanAction
 from game.scripting.draw_walls_action import DrawWallsAction
@@ -56,7 +55,6 @@ class SceneManager:
     VIDEO_SERVICE = RaylibVideoService(GAME_NAME, SCREEN_WIDTH, SCREEN_HEIGHT)
 
     CHECK_OVER_ACTION = CheckOverAction()
-    # COLLIDE_BORDERS_ACTION = CollideBordersAction(PHYSICS_SERVICE, AUDIO_SERVICE)
     COLLIDE_WALLS_ACTION = CollideWallAction(PHYSICS_SERVICE, AUDIO_SERVICE)
     CONTROL_PACMAN_ACTION = ControlPacmanAction(KEYBOARD_SERVICE)
     DRAW_WALLS_ACTION = DrawWallsAction(VIDEO_SERVICE)
@@ -322,7 +320,6 @@ class SceneManager:
     def _add_update_script(self, script):
         script.clear_actions(UPDATE)
         script.add_action(UPDATE, self.MOVE_PACMAN_ACTION)
-        # script.add_action(UPDATE, self.COLLIDE_BORDERS_ACTION)
         script.add_action(UPDATE, self.COLLIDE_GHOSTS_ACTION)        
         script.add_action(UPDATE, self.COLLIDE_FOODS_ACTION)
         script.add_action(UPDATE, self.COLLIDE_WALLS_ACTION)
