@@ -134,14 +134,25 @@ PACMAN_HEIGHT = 30
 PACMAN_RATE = 6
 PACMAN_VELOCITY = 2
 
-# BRICK
-BRICK_GROUP = "bricks"
-BRICK_IMAGES = str(ROOT_PATH.joinpath(f"pacman/assets/images/010.png"))
-BRICK_WIDTH = 80
-BRICK_HEIGHT = 30
-BRICK_DELAY = 0.5
-BRICK_RATE = 6
-BRICK_POINTS = 50
+# WALL
+WALL_GROUP = "walls"
+WALL_IMAGES = str(ROOT_PATH.joinpath(f"pacman/assets/images/010.png"))
+WALL_WIDTH = 80
+WALL_HEIGHT = 30
+WALL_DELAY = 0.5
+WALL_RATE = 6
+WALL_POINTS = 50
+
+# GHOST
+GHOST_GROUP = "ghosts"
+GHOST_IMAGES_RIGHT = [str(ROOT_PATH.joinpath(f"pacman/assets/images/{n:03}.png")) for n in range(100, 103)]
+GHOST_IMAGES_LEFT = [str(ROOT_PATH.joinpath(f"pacman/assets/images/{n:03}.png")) for n in range(107, 109)]
+GHOST_IMAGES_UP = [str(ROOT_PATH.joinpath(f"pacman/assets/images/{n:03}.png")) for n in range(104, 106)]
+GHOST_IMAGES_DOWN = [str(ROOT_PATH.joinpath(f"pacman/assets/images/ghost.png"))]
+GHOST_WIDTH = 30
+GHOST_HEIGHT = 30
+GHOST_RATE = 6
+GHOST_VELOCITY = 2
 
 # DIALOG
 DIALOG_GROUP = "dialogs"

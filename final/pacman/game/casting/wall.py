@@ -1,11 +1,11 @@
 from game.casting.actor import Actor
 
 
-class Brick(Actor):
+class Wall(Actor):
     """A solid, rectangular object that can be broken."""
 
     def __init__(self, body, image, debug = False):
-        """Constructs a new Brick.
+        """Constructs a new Wall.
         
         Args:
             body: A new instance of Body.
@@ -18,7 +18,7 @@ class Brick(Actor):
         
 
     def get_body(self):
-        """Gets the brick's body.
+        """Gets the wall's body.
         
         Returns:
             An instance of Body.

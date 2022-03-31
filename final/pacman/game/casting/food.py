@@ -20,9 +20,9 @@ class Food(Actor):
 
 
     def get_points(self):
-        """Gets the brick's points.
+        """Gets the wall's points.
         
         Returns:
-            A number representing the brick's points.
+            A number representing the wall's points.
         """
         return self._point

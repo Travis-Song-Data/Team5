@@ -1,10 +1,6 @@
-import imp
-from turtle import pos
 from constants import *
 from game.casting.point import Point
 from game.scripting.action import Action
-import csv
-
 class MovePacmanAction(Action):
 
     def __init__(self):

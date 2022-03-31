@@ -1,11 +1,13 @@
 import csv
 import random
+from re import X
+from tkinter import BOTTOM, Y
 from turtle import back, position
 from constants import *
 from game.casting.animation import Animation
 from game.casting.background import Background
 from game.casting.body import Body
-from game.casting.brick import Brick
+from game.casting.wall import Wall
 from game.casting.image import Image
 from game.casting.label import Label
 from game.casting.point import Point
@@ -15,9 +17,9 @@ from game.casting.text import Text
 from game.scripting.change_scene_action import ChangeSceneAction
 from game.scripting.check_over_action import CheckOverAction
 # from game.scripting.collide_borders_action import CollideBordersAction
-from game.scripting.collide_brick_action import CollideBrickAction
+from game.scripting.collide_wall_action import CollideWallAction
 from game.scripting.control_pacman_action import ControlPacmanAction
-from game.scripting.draw_bricks_action import DrawBricksAction
+from game.scripting.draw_walls_action import DrawWallsAction
 from game.scripting.draw_dialog_action import DrawDialogAction
 from game.scripting.draw_hud_action import DrawHudAction
 from game.scripting.draw_pacman_action import DrawPacmanAction
@@ -42,6 +44,9 @@ from game.services.video_service import VideoService
 from game.casting.food import Food
 from game.scripting.draw_food_action import DrawFoodAction
 from game.scripting.collide_food_action import CollideFoodAction
+from game.casting.ghost import Ghost
+from game.scripting.draw_ghost_action import DrawGhostAction
+from game.scripting.collide_ghost_action import CollideGhostAction
 class SceneManager:
     """The person in charge of setting up the cast and script for each scene."""
     
@@ -52,14 +57,15 @@ class SceneManager:
 
     CHECK_OVER_ACTION = CheckOverAction()
     # COLLIDE_BORDERS_ACTION = CollideBordersAction(PHYSICS_SERVICE, AUDIO_SERVICE)
-    COLLIDE_BRICKS_ACTION = CollideBrickAction(PHYSICS_SERVICE, AUDIO_SERVICE)
+    COLLIDE_WALLS_ACTION = CollideWallAction(PHYSICS_SERVICE, AUDIO_SERVICE)
     CONTROL_PACMAN_ACTION = ControlPacmanAction(KEYBOARD_SERVICE)
-    DRAW_BRICKS_ACTION = DrawBricksAction(VIDEO_SERVICE)
+    DRAW_WALLS_ACTION = DrawWallsAction(VIDEO_SERVICE)
     DRAW_DIALOG_ACTION = DrawDialogAction(VIDEO_SERVICE)
     DRAW_HUD_ACTION = DrawHudAction(VIDEO_SERVICE)
     DRAW_PACMAN_ACTION= DrawPacmanAction(VIDEO_SERVICE)
     DRAW_BACKGROUND_ACTION = DrawBackgroundAction(VIDEO_SERVICE)
     DRAW_RAIN_ACTION = DrawRainAction(VIDEO_SERVICE)
+    DRAW_GHOST_ACTION = DrawGhostAction(VIDEO_SERVICE)
     END_DRAWING_ACTION = EndDrawingAction(VIDEO_SERVICE)
     INITIALIZE_DEVICES_ACTION = InitializeDevicesAction(AUDIO_SERVICE, VIDEO_SERVICE)
     LOAD_ASSETS_ACTION = LoadAssetsAction(AUDIO_SERVICE, VIDEO_SERVICE)
@@ -69,6 +75,7 @@ class SceneManager:
     UNLOAD_ASSETS_ACTION = UnloadAssetsAction(AUDIO_SERVICE, VIDEO_SERVICE)
     DRAW_FOOD_ACTION = DrawFoodAction(VIDEO_SERVICE)
     COLLIDE_FOODS_ACTION = CollideFoodAction(PHYSICS_SERVICE, AUDIO_SERVICE)
+    COLLIDE_GHOSTS_ACTION = CollideGhostAction(PHYSICS_SERVICE, AUDIO_SERVICE)
 
     def __init__(self):
         pass
@@ -90,16 +97,16 @@ class SceneManager:
     # ----------------------------------------------------------------------------------------------
     
     def _prepare_new_game(self, cast, script):
-        self._add_rain(cast)
         self._add_background(cast)
         self._add_stats(cast)
         self._add_level(cast)
         self._add_lives(cast)
         self._add_score(cast)
-        self._add_bricks(cast)
+        self._add_walls(cast)
         self._add_pacman(cast)
         self._add_dialog(cast, ENTER_TO_START)
         self._add_foods(cast)
+        self._add_ghost(cast)
 
         self._add_initialize_script(script)
         self._add_load_script(script)
@@ -111,12 +118,12 @@ class SceneManager:
         script.add_action(OUTPUT, PlaySoundAction(self.AUDIO_SERVICE, BACKGROUND_SOUND)) 
         
     def _prepare_next_level(self, cast, script):
-        self._add_rain(cast)
         self._add_background(cast)
-        self._add_bricks(cast)
+        self._add_walls(cast)
         self._add_pacman(cast)
         self._add_dialog(cast, PREP_TO_LAUNCH)
         self._add_foods(cast)
+        self._add_ghost(cast)
 
         script.clear_actions(INPUT)
         script.add_action(INPUT, TimedChangeSceneAction(IN_PLAY, 2))
@@ -126,7 +133,7 @@ class SceneManager:
     def _prepare_try_again(self, cast, script):
         self._add_pacman(cast)
         self._add_dialog(cast, PREP_TO_LAUNCH)
-        self._add_foods(cast)
+        self._add_ghost(cast)
 
         script.clear_actions(INPUT)
         script.add_action(INPUT, TimedChangeSceneAction(IN_PLAY, 2))
@@ -142,6 +149,7 @@ class SceneManager:
         self._add_output_script(script)
 
     def _prepare_game_over(self, cast, script):
+        self._add_rain(cast)    
         self._add_pacman(cast)
         self._add_dialog(cast, WAS_GOOD_GAME)
 
@@ -154,6 +162,7 @@ class SceneManager:
     # casting methods
     # ----------------------------------------------------------------------------------------------
     
+
     def _add_rain(self, cast):
         cast.clear_actors(RAIN_GROUP)
 
@@ -197,8 +206,8 @@ class SceneManager:
                         food = Food(body, image, point)
                         cast.add_actor(FOOD_GROUP, food)
 
-    def _add_bricks(self, cast):
-        cast.clear_actors(BRICK_GROUP)
+    def _add_walls(self, cast):
+        cast.clear_actors(WALL_GROUP)
         
         filename = LEVEL_FILE
 
@@ -208,18 +217,18 @@ class SceneManager:
             for r, row in enumerate(reader):
                 for c, column in enumerate(row):
                     if column == '1':
-                        x = FIELD_LEFT + c * BRICK_WIDTH
-                        y = FIELD_TOP + r * BRICK_HEIGHT
+                        x = FIELD_LEFT + c * WALL_WIDTH
+                        y = FIELD_TOP + r * WALL_HEIGHT
                         
                         position = Point(x, y)
-                        size = Point(BRICK_WIDTH, BRICK_HEIGHT)
+                        size = Point(WALL_WIDTH, WALL_HEIGHT)
                         velocity = Point(0, 0)
-                        image = Image(BRICK_IMAGES)
+                        image = Image(WALL_IMAGES)
 
                         body = Body(position, size, velocity)
 
-                        brick = Brick(body, image)
-                        cast.add_actor(BRICK_GROUP, brick)
+                        wall = Wall(body, image)
+                        cast.add_actor(WALL_GROUP, wall)
 
     def _add_dialog(self, cast, message):
         cast.clear_actors(DIALOG_GROUP)
@@ -256,8 +265,8 @@ class SceneManager:
 
     def _add_pacman(self, cast):
         cast.clear_actors(PACMAN_GROUP)
-        x = CENTER_X - PACMAN_WIDTH / 2
-        y = CENTER_Y - PACMAN_HEIGHT * 2
+        x = FIELD_LEFT + WALL_WIDTH
+        y = FIELD_BOTTOM - WALL_HEIGHT - PACMAN_HEIGHT
         position = Point(x, y)
         size = Point(PACMAN_WIDTH, PACMAN_HEIGHT)
         velocity = Point(0, 0)
@@ -265,6 +274,18 @@ class SceneManager:
         animation = Animation(PACMAN_IMAGES_RIGHT, PACMAN_RATE)
         pacman = Pacman(body, animation)
         cast.add_actor(PACMAN_GROUP, pacman)
+
+    def _add_ghost(self, cast):
+        cast.clear_actors(GHOST_GROUP)
+        x = CENTER_X - GHOST_WIDTH / 2
+        y = CENTER_Y - GHOST_HEIGHT * 2
+        position = Point(x, y)
+        size = Point(GHOST_WIDTH, GHOST_HEIGHT)
+        velocity = Point(0, 0)
+        body = Body(position, size, velocity)
+        animation = Animation(GHOST_IMAGES_DOWN, GHOST_RATE)
+        ghost = Ghost(body, animation)
+        cast.add_actor(GHOST_GROUP, ghost)
 
     # ----------------------------------------------------------------------------------------------
     # scripting methods
@@ -281,8 +302,9 @@ class SceneManager:
         script.clear_actions(OUTPUT)
         script.add_action(OUTPUT, self.START_DRAWING_ACTION)
         script.add_action(OUTPUT, self.DRAW_BACKGROUND_ACTION)
-        script.add_action(OUTPUT, self.DRAW_BRICKS_ACTION)
+        script.add_action(OUTPUT, self.DRAW_WALLS_ACTION)
         script.add_action(OUTPUT, self.DRAW_RAIN_ACTION)
+        script.add_action(OUTPUT, self.DRAW_GHOST_ACTION)
         script.add_action(OUTPUT, self.DRAW_PACMAN_ACTION)
         script.add_action(OUTPUT, self.DRAW_FOOD_ACTION)
         script.add_action(OUTPUT, self.DRAW_DIALOG_ACTION)
@@ -301,7 +323,8 @@ class SceneManager:
         script.clear_actions(UPDATE)
         script.add_action(UPDATE, self.MOVE_PACMAN_ACTION)
         # script.add_action(UPDATE, self.COLLIDE_BORDERS_ACTION)
+        script.add_action(UPDATE, self.COLLIDE_GHOSTS_ACTION)        
         script.add_action(UPDATE, self.COLLIDE_FOODS_ACTION)
-        script.add_action(UPDATE, self.COLLIDE_BRICKS_ACTION)
+        script.add_action(UPDATE, self.COLLIDE_WALLS_ACTION)
         script.add_action(UPDATE, self.MOVE_PACMAN_ACTION)
         script.add_action(UPDATE, self.CHECK_OVER_ACTION)

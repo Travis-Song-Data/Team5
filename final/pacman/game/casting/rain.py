@@ -18,14 +18,6 @@ class Rain(Actor):
         """
         return self._image
 
-    def get_velocity(self):
-        """Gets the body's velocity.
-        
-        Returns:
-            An instance of Point containing the horizontal and vertical speed.
-        """
-        return self._velocity
-
     def get_body(self):
 
         return self._body
