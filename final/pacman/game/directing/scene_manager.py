@@ -323,5 +323,4 @@ class SceneManager:
         script.add_action(UPDATE, self.COLLIDE_GHOSTS_ACTION)        
         script.add_action(UPDATE, self.COLLIDE_FOODS_ACTION)
         script.add_action(UPDATE, self.COLLIDE_WALLS_ACTION)
-        script.add_action(UPDATE, self.MOVE_PACMAN_ACTION)
         script.add_action(UPDATE, self.CHECK_OVER_ACTION)
