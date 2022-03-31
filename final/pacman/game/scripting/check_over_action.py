@@ -8,8 +8,8 @@ class CheckOverAction(Action):
         pass
         
     def execute(self, cast, script, callback):
-        walls = cast.get_actors(WALL_GROUP)
-        if len(walls) == 0:
+        foods = cast.get_actors(FOOD_GROUP)
+        if len(foods) == 0:
             stats = cast.get_first_actor(STATS_GROUP)
             stats.next_level()
             callback.on_next(NEXT_LEVEL)
