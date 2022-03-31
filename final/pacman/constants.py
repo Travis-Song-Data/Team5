@@ -74,9 +74,6 @@ GAME_OVER = 4
 LEVEL_FILE = str(ROOT_PATH.joinpath("pacman/assets/data/level-000.txt"))
 BASE_LEVELS = 5
 
-# WALLS
-WALLS_FILE = str(ROOT_PATH.joinpath("pacman/assets/data/maze.txt"))
-WALL_GROUP = "walls"
 # -------------------------------------------------------------------------------------------------- 
 # SCRIPTING CONSTANTS
 # -------------------------------------------------------------------------------------------------- 
