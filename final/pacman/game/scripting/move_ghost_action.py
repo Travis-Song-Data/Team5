@@ -14,48 +14,49 @@ class MoveGhostAction(Action):
         x = position.get_x()
         y = position.get_y()
 
-        ghost = cast.get_first_actor(GHOST_GROUP)
-        g_body = ghost.get_body()
-        position = g_body.get_position()
-        g_x = position.get_x()
-        g_y = position.get_y()
+        ghosts = cast.get_actors(GHOST_GROUP)
+        for ghost in ghosts:
+            g_body = ghost.get_body()
+            position = g_body.get_position()
+            g_x = position.get_x()
+            g_y = position.get_y()
 
-        if x < g_x:
-            if y > g_y:
-                if g_x - x >= y - g_y:
-                    g_velocity = Point(-GHOST_VELOCITY, 0)
-                    new_position = position.add(g_velocity)
-                    g_body.set_position(new_position)
-                else:
-                    g_velocity = Point(0, GHOST_VELOCITY)
-                    new_position = position.add(g_velocity)
-                    g_body.set_position(new_position)
-            if y <= g_y:
-                if g_x - x >= g_y - y:
-                    g_velocity = Point(-GHOST_VELOCITY, 0)
-                    new_position = position.add(g_velocity)
-                    g_body.set_position(new_position)
-                else:
-                    g_velocity = Point(0, -GHOST_VELOCITY)
-                    new_position = position.add(g_velocity)
-                    g_body.set_position(new_position)
+            if x < g_x:
+                if y > g_y:
+                    if g_x - x >= y - g_y:
+                        g_velocity = Point(-GHOST_VELOCITY, 0)
+                        new_position = position.add(g_velocity)
+                        g_body.set_position(new_position)
+                    else:
+                        g_velocity = Point(0, GHOST_VELOCITY)
+                        new_position = position.add(g_velocity)
+                        g_body.set_position(new_position)
+                if y <= g_y:
+                    if g_x - x >= g_y - y:
+                        g_velocity = Point(-GHOST_VELOCITY, 0)
+                        new_position = position.add(g_velocity)
+                        g_body.set_position(new_position)
+                    else:
+                        g_velocity = Point(0, -GHOST_VELOCITY)
+                        new_position = position.add(g_velocity)
+                        g_body.set_position(new_position)
 
-        if x >= g_x:
-            if y > g_y:
-                if x- g_x >= y - g_y:
-                    g_velocity = Point(GHOST_VELOCITY, 0)
-                    new_position = position.add(g_velocity)
-                    g_body.set_position(new_position)
-                else:
-                    g_velocity = Point(0, GHOST_VELOCITY)
-                    new_position = position.add(g_velocity)
-                    g_body.set_position(new_position)
-            if y <= g_y:
-                if x- g_x >= g_y - y:
-                    g_velocity = Point(GHOST_VELOCITY, 0)
-                    new_position = position.add(g_velocity)
-                    g_body.set_position(new_position)
-                else:
-                    g_velocity = Point(0, -GHOST_VELOCITY)
-                    new_position = position.add(g_velocity)
-                    g_body.set_position(new_position)
+            if x >= g_x:
+                if y > g_y:
+                    if x- g_x >= y - g_y:
+                        g_velocity = Point(GHOST_VELOCITY, 0)
+                        new_position = position.add(g_velocity)
+                        g_body.set_position(new_position)
+                    else:
+                        g_velocity = Point(0, GHOST_VELOCITY)
+                        new_position = position.add(g_velocity)
+                        g_body.set_position(new_position)
+                if y <= g_y:
+                    if x- g_x >= g_y - y:
+                        g_velocity = Point(GHOST_VELOCITY, 0)
+                        new_position = position.add(g_velocity)
+                        g_body.set_position(new_position)
+                    else:
+                        g_velocity = Point(0, -GHOST_VELOCITY)
+                        new_position = position.add(g_velocity)
+                        g_body.set_position(new_position)
