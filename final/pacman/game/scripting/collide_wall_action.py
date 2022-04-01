@@ -14,10 +14,11 @@ class CollideWallAction(Action):
         walls = cast.get_actors(WALL_GROUP)
         stats = cast.get_first_actor(STATS_GROUP)
         pacman = cast.get_first_actor(PACMAN_GROUP)
+        pacman_body = pacman.get_body()
+        
         
         for wall in walls:
             wall_body = wall.get_body()
-            pacman_body = pacman.get_body()
             pacman_position = pacman_body.get_position()
 
             if self._physics_service.is_above(pacman_body, wall_body):
