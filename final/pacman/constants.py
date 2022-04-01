@@ -129,7 +129,7 @@ PACMAN_IMAGES_DOWN = [str(ROOT_PATH.joinpath(f"pacman/assets/images/{n:03}.png")
 PACMAN_WIDTH = 30
 PACMAN_HEIGHT = 30
 PACMAN_RATE = 6
-PACMAN_VELOCITY = 4
+PACMAN_VELOCITY = 5
 
 # WALL
 WALL_GROUP = "walls"

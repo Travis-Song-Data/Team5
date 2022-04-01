@@ -274,7 +274,9 @@ class SceneManager:
 
     def _add_ghost(self, cast):
         cast.clear_actors(GHOST_GROUP)
-        for i in range(1, 2 * 2):
+        stats = cast.get_first_actor(STATS_GROUP)
+        level = stats.get_level()
+        for i in range(1, level * 2):
             x = random.randint(0, SCREEN_WIDTH)
             y = random.randint(0, SCREEN_HEIGHT)
             position = Point(x, y)
