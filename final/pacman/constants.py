@@ -142,10 +142,7 @@ WALL_POINTS = 50
 
 # GHOST
 GHOST_GROUP = "ghosts"
-GHOST_IMAGES_RIGHT = [str(ROOT_PATH.joinpath(f"pacman/assets/images/{n:03}.png")) for n in range(100, 103)]
-GHOST_IMAGES_LEFT = [str(ROOT_PATH.joinpath(f"pacman/assets/images/{n:03}.png")) for n in range(107, 109)]
-GHOST_IMAGES_UP = [str(ROOT_PATH.joinpath(f"pacman/assets/images/{n:03}.png")) for n in range(104, 106)]
-GHOST_IMAGES_DOWN = [str(ROOT_PATH.joinpath(f"pacman/assets/images/ghost.png"))]
+GHOST_IMAGES = [str(ROOT_PATH.joinpath(f"pacman/assets/images/ghost.png"))]
 GHOST_WIDTH = 30
 GHOST_HEIGHT = 30
 GHOST_RATE = 6

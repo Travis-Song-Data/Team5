@@ -278,15 +278,16 @@ class SceneManager:
 
     def _add_ghost(self, cast):
         cast.clear_actors(GHOST_GROUP)
-        x = CENTER_X - GHOST_WIDTH / 2
-        y = CENTER_Y - GHOST_HEIGHT * 2
-        position = Point(x, y)
-        size = Point(GHOST_WIDTH, GHOST_HEIGHT)
-        velocity = Point(0, 0)
-        body = Body(position, size, velocity)
-        animation = Animation(GHOST_IMAGES_DOWN, GHOST_RATE)
-        ghost = Ghost(body, animation)
-        cast.add_actor(GHOST_GROUP, ghost)
+        for i in range(3):
+            x = random.randint(50, 800)
+            y = random.randint(50, 800)
+            position = Point(x, y)
+            size = Point(GHOST_WIDTH, GHOST_HEIGHT)
+            velocity = Point(0, 0)
+            body = Body(position, size, velocity)
+            animation = Animation(GHOST_IMAGES, GHOST_RATE)
+            ghost = Ghost(body, animation)
+            cast.add_actor(GHOST_GROUP, ghost)
 
     # ----------------------------------------------------------------------------------------------
     # scripting methods

@@ -8,14 +8,15 @@ class DrawGhostAction(Action):
         self._video_service = video_service
         
     def execute(self, cast, script, callback):
-        ghost = cast.get_first_actor(GHOST_GROUP)
-        body = ghost.get_body()
+        ghosts = cast.get_actors(GHOST_GROUP)
+        for ghost in ghosts:
+            body = ghost.get_body()
 
-        if ghost.is_debug():
-            rectangle = body.get_rectangle()
-            self._video_service.draw_rectangle(rectangle, PURPLE)
-            
-        animation = ghost.get_animation()
-        image = animation.next_image()
-        position = body.get_position()
-        self._video_service.draw_image(image, position)
+            if ghost.is_debug():
+                rectangle = body.get_rectangle()
+                self._video_service.draw_rectangle(rectangle, PURPLE)
+                
+            animation = ghost.get_animation()
+            image = animation.next_image()
+            position = body.get_position()
+            self._video_service.draw_image(image, position)
