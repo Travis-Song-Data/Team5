@@ -1,8 +1,5 @@
 import csv
 import random
-from re import X
-from tkinter import BOTTOM, Y
-from turtle import back, position
 from constants import *
 from game.casting.animation import Animation
 from game.casting.background import Background
@@ -79,7 +76,6 @@ class SceneManager:
 
     def __init__(self):
         pass
-
     def prepare_scene(self, scene, cast, script):
         if scene == NEW_GAME:
             self._prepare_new_game(cast, script)
@@ -91,6 +87,7 @@ class SceneManager:
             self._prepare_in_play(cast, script)
         elif scene == GAME_OVER:    
             self._prepare_game_over(cast, script)
+
     
     # ----------------------------------------------------------------------------------------------
     # scene methods
@@ -106,7 +103,6 @@ class SceneManager:
         self._add_pacman(cast)
         self._add_dialog(cast, ENTER_TO_START)
         self._add_foods(cast)
-        self._add_ghost(cast)
 
         self._add_initialize_script(script)
         self._add_load_script(script)
@@ -278,9 +274,9 @@ class SceneManager:
 
     def _add_ghost(self, cast):
         cast.clear_actors(GHOST_GROUP)
-        for i in range(3):
-            x = random.randint(50, 800)
-            y = random.randint(50, 800)
+        for i in range(1, 2 * 2):
+            x = random.randint(0, SCREEN_WIDTH)
+            y = random.randint(0, SCREEN_HEIGHT)
             position = Point(x, y)
             size = Point(GHOST_WIDTH, GHOST_HEIGHT)
             velocity = Point(0, 0)
