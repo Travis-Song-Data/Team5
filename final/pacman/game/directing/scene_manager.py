@@ -46,6 +46,7 @@ from game.scripting.collide_food_action import CollideFoodAction
 from game.casting.ghost import Ghost
 from game.scripting.draw_ghost_action import DrawGhostAction
 from game.scripting.collide_ghost_action import CollideGhostAction
+from game.scripting.move_ghost_action import MoveGhostAction
 class SceneManager:
     """The person in charge of setting up the cast and script for each scene."""
     
@@ -68,6 +69,7 @@ class SceneManager:
     INITIALIZE_DEVICES_ACTION = InitializeDevicesAction(AUDIO_SERVICE, VIDEO_SERVICE)
     LOAD_ASSETS_ACTION = LoadAssetsAction(AUDIO_SERVICE, VIDEO_SERVICE)
     MOVE_PACMAN_ACTION = MovePacmanAction()
+    MOVE_GHOST_ACTION = MoveGhostAction()
     RELEASE_DEVICES_ACTION = ReleaseDevicesAction(AUDIO_SERVICE, VIDEO_SERVICE)
     START_DRAWING_ACTION = StartDrawingAction(VIDEO_SERVICE)
     UNLOAD_ASSETS_ACTION = UnloadAssetsAction(AUDIO_SERVICE, VIDEO_SERVICE)
@@ -143,6 +145,7 @@ class SceneManager:
 
         script.clear_actions(INPUT)
         script.add_action(INPUT, self.CONTROL_PACMAN_ACTION)
+        script.add_action(INPUT, self.MOVE_GHOST_ACTION)
         self._add_update_script(script)
         self._add_output_script(script)
 

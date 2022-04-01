@@ -149,7 +149,7 @@ GHOST_IMAGES_DOWN = [str(ROOT_PATH.joinpath(f"pacman/assets/images/ghost.png"))]
 GHOST_WIDTH = 30
 GHOST_HEIGHT = 30
 GHOST_RATE = 6
-GHOST_VELOCITY = 2
+GHOST_VELOCITY = 1
 
 # DIALOG
 DIALOG_GROUP = "dialogs"
