@@ -94,7 +94,6 @@ class SceneManager:
     # ----------------------------------------------------------------------------------------------
     
     def _prepare_new_game(self, cast, script):
-        self._add_background(cast)
         self._add_stats(cast)
         self._add_level(cast)
         self._add_lives(cast)
@@ -114,7 +113,6 @@ class SceneManager:
         script.add_action(OUTPUT, PlaySoundAction(self.AUDIO_SERVICE, BACKGROUND_SOUND)) 
         
     def _prepare_next_level(self, cast, script):
-        self._add_background(cast)
         self._add_walls(cast)
         self._add_pacman(cast)
         self._add_dialog(cast, PREP_TO_LAUNCH)
@@ -146,9 +144,11 @@ class SceneManager:
         self._add_output_script(script)
 
     def _prepare_game_over(self, cast, script):
+        self._add_background(cast)
         self._add_rain(cast)    
         self._add_pacman(cast)
         self._add_dialog(cast, WAS_GOOD_GAME)
+
 
         script.clear_actions(INPUT)
         script.add_action(INPUT, TimedChangeSceneAction(NEW_GAME, 5))
@@ -175,8 +175,13 @@ class SceneManager:
             cast.add_actor(RAIN_GROUP, rain)
 
     def _add_background(self, cast):
+        cast.clear_actors(RAIN_GROUP) 
+        position = Point(BACKGROUND_X, BACKGROUND_Y)
+        velocity = Point(0, 0)
+        size = Point(0, 0)
         image = Image(BACKGROUND_IMAGE)
-        background = Background(image, True)
+        body = Body(position, size, velocity)
+        background = Background(image, body)
         cast.add_actor(BACKGROUND_GROUP, background) 
 
     def _add_foods(self, cast):
@@ -301,13 +306,14 @@ class SceneManager:
     def _add_output_script(self, script):
         script.clear_actions(OUTPUT)
         script.add_action(OUTPUT, self.START_DRAWING_ACTION)
-        script.add_action(OUTPUT, self.DRAW_BACKGROUND_ACTION)
         script.add_action(OUTPUT, self.DRAW_WALLS_ACTION)
-        script.add_action(OUTPUT, self.DRAW_RAIN_ACTION)
-        script.add_action(OUTPUT, self.DRAW_GHOST_ACTION)
+        script.add_action(OUTPUT, self.DRAW_BACKGROUND_ACTION)
         script.add_action(OUTPUT, self.DRAW_PACMAN_ACTION)
         script.add_action(OUTPUT, self.DRAW_FOOD_ACTION)
+        script.add_action(OUTPUT, self.DRAW_GHOST_ACTION)
         script.add_action(OUTPUT, self.DRAW_DIALOG_ACTION)
+        script.add_action(OUTPUT, self.DRAW_BACKGROUND_ACTION)
+        script.add_action(OUTPUT, self.DRAW_RAIN_ACTION) 
         script.add_action(OUTPUT, self.DRAW_HUD_ACTION)
         script.add_action(OUTPUT, self.END_DRAWING_ACTION)
 

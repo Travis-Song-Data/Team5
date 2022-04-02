@@ -10,14 +10,14 @@ ROOT_PATH = pathlib.Path(__file__).parent.resolve().parent.resolve()
 # -------------------------------------------------------------------------------------------------- 
 
 # GAME
-GAME_NAME = "pacman"
+GAME_NAME = "pumpkinman"
 FRAME_RATE = 60
 
 # BACKGROUND
 BACKGROUND_GROUP = "background"
-BACKGROUND_IMAGE = str(ROOT_PATH.joinpath("pacman/assets/images/120.png"))
+BACKGROUND_IMAGE = str(ROOT_PATH.joinpath("pacman/assets/images/background.png"))
 BACKGROUND_X = 0
-BACKGROUND_Y = -5
+BACKGROUND_Y = 0
 
 # SCREEN
 SCREEN_WIDTH = 1040
