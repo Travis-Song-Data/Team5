@@ -136,7 +136,8 @@ class SceneManager:
 
     def _prepare_in_play(self, cast, script):
         cast.clear_actors(DIALOG_GROUP)
-
+        cast.clear_actors(BACKGROUND_GROUP)
+        cast.clear_actors(RAIN_GROUP)
         script.clear_actions(INPUT)
         script.add_action(INPUT, self.CONTROL_PACMAN_ACTION)
         script.add_action(INPUT, self.MOVE_GHOST_ACTION)
@@ -311,10 +312,10 @@ class SceneManager:
         script.add_action(OUTPUT, self.DRAW_PACMAN_ACTION)
         script.add_action(OUTPUT, self.DRAW_FOOD_ACTION)
         script.add_action(OUTPUT, self.DRAW_GHOST_ACTION)
-        script.add_action(OUTPUT, self.DRAW_DIALOG_ACTION)
-        script.add_action(OUTPUT, self.DRAW_BACKGROUND_ACTION)
-        script.add_action(OUTPUT, self.DRAW_RAIN_ACTION) 
         script.add_action(OUTPUT, self.DRAW_HUD_ACTION)
+        script.add_action(OUTPUT, self.DRAW_BACKGROUND_ACTION)
+        script.add_action(OUTPUT, self.DRAW_RAIN_ACTION)
+        script.add_action(OUTPUT, self.DRAW_DIALOG_ACTION)
         script.add_action(OUTPUT, self.END_DRAWING_ACTION)
 
     def _add_release_script(self, script):
