@@ -1,40 +1,72 @@
-# pacman
-pacman is a clone of the classic breakout game.
+# Title: PumpkinMan
 
-## Getting Started
----
-Make sure you have Python 3.8.0 or newer and Raylib Python CFFI 3.7 installed and running on your machine. You can install Raylib Python CFFI by opening a terminal and running the following command.
-```
-python3 -m pip install raylib
-```
-After you've installed the required libraries, open a terminal and browse to the project's root folder. Start the program by running the following command.```
+# Description
 
-python3 pacman 
-```
-You can also run the program from an IDE like Visual Studio Code. Start your IDE and open the 
-project folder. Select the main module inside the hunter folder and click the "run" icon.
+PumpkinMan is a one player game where a pumpkin moves around the maize and eat fruits to gain points without being caught by the ghost. The objective of the game is to survive the maize in each level while avoiding the ghost.
 
-## Project Structure
----
-The project files and folders are organized as follows:
-```
-root                    (project root folder)
-+-- pacman              (source code for game)
-  +-- game              (specific game classes)
-    +-- casting         (various actor classes)
-    +-- directing       (director and scene manager classes)
-    +-- scripting       (various action classes)
-    +-- services        (various service classes)
-  +-- __main__.py       (entry point for program)
-  +-- constants.py      (game constants)
-+-- README.md           (general info)
-```
+## Classes
 
-## Required Technologies
----
-* Python 3.8.0
-* Raylib Python CFFI 3.7
+### Casting
 
-## Authors
----
-* Matt Manley (manleym@byui.edu)
+- actor
+- animation
+- background
+- body
+- cast
+- color
+- food
+- ghost
+- image
+- label
+- pacman
+- point
+- rain
+- rectangle
+- sound
+- stats
+- text
+- wall
+
+### Scripting
+
+- action
+- action_callback
+- change_scene_action
+- check_over_action
+- collide_food_action
+- collide_ghost_action
+- collide_wall_action
+- control_pacman_action
+- draw_background_action
+- draw_dialog_action
+- draw_food_action
+- draw_ghost_action
+- draw_hud_action
+- draw_pacman_action
+- draw_rain_action
+- draw_walls_action
+- end_drawing_action
+- initialize_devices_action
+- load_assets_action
+- move_ghost_action
+- move_pacman_action
+- play_sound_action
+- release_devices_action
+- script
+- start_drawing_action
+- timed_change_scene_action
+- unload_assets_action
+
+### Services
+
+- audio_service
+- keyboard_service
+- mouse_service
+- physics_service
+- video_service
+
+Required Software: Visual Studio Code
+
+Team Members and Email Addresses:
+
+Sebastian Bustamante - bus21006@byui.edu, Xing Gao - gao20002@byui.edu, Na Rah Kwak - kwa18001@byui.edu, Travis Song - son19001@byui.edu
